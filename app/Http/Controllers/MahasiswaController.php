@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 
-class MahasiswaController
+class MahasiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +13,9 @@ class MahasiswaController
     public function index()
     {
         return view('mahasiswa.index', [
+
             'mahasiswa' => Mahasiswa::all()
+
         ]);
     }
 
@@ -30,11 +32,34 @@ class MahasiswaController
      */
     public function store(Request $request)
     {
-        $data = $request->except('_token');
+        // Validasi
+        $request->validate([
 
-        Mahasiswa::create($data);
+            'fullname'       => 'required',
+            'NIM'            => 'required',
+            'NIDN'           => 'required',
+            'tempat_lahir'   => 'required',
+            'tanggal_lahir'  => 'required',
+            'alamat'         => 'required',
 
-        return redirect()->action([MahasiswaController::class, 'index']);
+        ]);
+
+        // Simpan data
+        Mahasiswa::create([
+
+            'fullname'       => $request->fullname,
+            'NIM'            => $request->NIM,
+            'NIDN'           => $request->NIDN,
+            'tempat_lahir'   => $request->tempat_lahir,
+            'tanggal_lahir'  => $request->tanggal_lahir,
+            'alamat'         => $request->alamat,
+
+        ]);
+
+        // Redirect
+        return redirect()
+                ->action([MahasiswaController::class, 'index'])
+                ->with('success', 'Data mahasiswa berhasil ditambahkan');
     }
 
     /**
@@ -51,7 +76,9 @@ class MahasiswaController
     public function edit($id)
     {
         return view('mahasiswa.edit', [
+
             'mahasiswa' => Mahasiswa::find($id)
+
         ]);
     }
 
@@ -60,20 +87,44 @@ class MahasiswaController
      */
     public function update(Request $request, $id)
     {
-        $data = $request->except('_token');
+        // Validasi
+        $request->validate([
 
-        Mahasiswa::find($id)->update($data);
+            'fullname'       => 'required',
+            'NIM'            => 'required',
+            'NIDN'           => 'required',
+            'tempat_lahir'   => 'required',
+            'tanggal_lahir'  => 'required',
+            'alamat'         => 'required',
 
-        return redirect()->action([MahasiswaController::class, 'index']);
+        ]);
+
+        // Update data
+        Mahasiswa::find($id)->update([
+
+            'fullname'       => $request->fullname,
+            'NIM'            => $request->NIM,
+            'NIDN'           => $request->NIDN,
+            'tempat_lahir'   => $request->tempat_lahir,
+            'tanggal_lahir'  => $request->tanggal_lahir,
+            'alamat'         => $request->alamat,
+
+        ]);
+
+        // Redirect
+        return redirect()
+                ->action([MahasiswaController::class, 'index'])
+                ->with('success', 'Data mahasiswa berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(\App\Models\Mahasiswa $mahasiswa)
+    public function destroy(Mahasiswa $mahasiswa)
     {
-    $mahasiswa->delete();
+        $mahasiswa->delete();
 
-    return redirect('/mahasiswa')->with('success', 'Data berhasil dihapus');
+        return redirect('/mahasiswa')
+                ->with('success', 'Data berhasil dihapus');
     }
 }
