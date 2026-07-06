@@ -2,47 +2,98 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\jurusan;
+use App\Models\Jurusan;
 use Illuminate\Http\Request;
 
 class JurusanController extends Controller
 {
+    /**
+     * Menampilkan seluruh data jurusan
+     */
     public function index()
     {
-        $jurusan = jurusan::all();
+        $jurusan = Jurusan::latest()->get();
+
         return view('jurusan.index', compact('jurusan'));
     }
 
+    /**
+     * Form tambah jurusan
+     */
     public function create()
     {
         return view('jurusan.create');
     }
 
+    /**
+     * Simpan data jurusan
+     */
     public function store(Request $request)
     {
-        jurusan::create($request->all());
-        return redirect('/jurusan')->with('success', 'Data berhasil ditambahkan');
+        $request->validate([
+            'nama_jurusan' => 'required|max:100',
+            'kode_jurusan' => 'required|max:20|unique:jurusans,kode_jurusan',
+            'ketua_jurusan' => 'required|max:100',
+        ]);
+
+        Jurusan::create([
+            'nama_jurusan' => $request->nama_jurusan,
+            'kode_jurusan' => $request->kode_jurusan,
+            'ketua_jurusan' => $request->ketua_jurusan,
+        ]);
+
+        return redirect()
+            ->route('jurusan.index')
+            ->with('success', 'Data jurusan berhasil ditambahkan.');
     }
 
-    public function edit($id)
+    /**
+     * Detail jurusan
+     */
+    public function show(Jurusan $jurusan)
     {
-        $jurusan = jurusan::findOrFail($id);
+        return view('jurusan.show', compact('jurusan'));
+    }
+
+    /**
+     * Form edit jurusan
+     */
+    public function edit(Jurusan $jurusan)
+    {
         return view('jurusan.edit', compact('jurusan'));
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update data jurusan
+     */
+    public function update(Request $request, Jurusan $jurusan)
     {
-        $jurusan = jurusan::findOrFail($id);
-        $jurusan->update($request->all());
+        $request->validate([
+            'nama_jurusan' => 'required|max:100',
+            'kode_jurusan' => 'required|max:20|unique:jurusans,kode_jurusan,' . $jurusan->id,
+            'ketua_jurusan' => 'required|max:100',
+        ]);
 
-        return redirect('/jurusan')->with('success', 'Data berhasil diupdate');
+        $jurusan->update([
+            'nama_jurusan' => $request->nama_jurusan,
+            'kode_jurusan' => $request->kode_jurusan,
+            'ketua_jurusan' => $request->ketua_jurusan,
+        ]);
+
+        return redirect()
+            ->route('jurusan.index')
+            ->with('success', 'Data jurusan berhasil diperbarui.');
     }
 
-    public function destroy($id)
+    /**
+     * Hapus data jurusan
+     */
+    public function destroy(Jurusan $jurusan)
     {
-        $jurusan = jurusan::findOrFail($id);
         $jurusan->delete();
 
-        return redirect('/jurusan')->with('success', 'Data berhasil dihapus');
+        return redirect()
+            ->route('jurusan.index')
+            ->with('success', 'Data jurusan berhasil dihapus.');
     }
 }

@@ -28,6 +28,7 @@
             padding-bottom: 10px;
             padding-left: 18px;
             padding-right: 18px;
+            border-bottom: 1px solid #e9e9e9;
         }
 
         .logo-kampus{
@@ -63,18 +64,20 @@
         .content-area{
             padding-left: 22px;
             padding-right: 22px;
-            margin-top: 5px;
+            margin-top: 20px;
         }
 
         /* Button Create */
         .btn-create{
             font-size: 13px;
-            padding: 3px 10px;
-            border-radius: 2px;
+            padding: 5px 12px;
+            border-radius: 3px;
             border: 1px solid #bcbcbc;
             background-color: #f8f9fa;
             color: #333;
             margin-bottom: 14px;
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-create:hover{
@@ -127,6 +130,7 @@
     </style>
 
 </head>
+
 <body>
 
     <!-- Navbar -->
@@ -186,40 +190,64 @@
 
                         <ul class="dropdown-menu">
 
+                            <!-- Mahasiswa -->
                             <li>
+
                                 <a class="dropdown-item"
                                    href="{{ route('mahasiswa.index') }}">
 
                                     Mahasiswa
 
                                 </a>
+
                             </li>
 
+                            <!-- Dosen -->
                             <li>
+
                                 <a class="dropdown-item"
                                    href="{{ route('dosen.index') }}">
 
                                     Dosen
 
                                 </a>
+
                             </li>
 
+                            <!-- Jurusan -->
                             <li>
+
                                 <a class="dropdown-item"
                                    href="{{ route('jurusan.index') }}">
 
                                     Jurusan
 
                                 </a>
+
                             </li>
 
+                            <!-- Mata Kuliah -->
                             <li>
+
                                 <a class="dropdown-item"
                                    href="{{ route('matakuliah.index') }}">
 
                                     Mata Kuliah
 
                                 </a>
+
+                            </li>
+
+                            <!-- Kelas -->
+                            <li>
+
+                                <a class="dropdown-item"
+                                   href="{{ route('kelas.index') }}">
+
+                                    Kelas
+
+                                </a>
+
                             </li>
 
                         </ul>
@@ -255,11 +283,12 @@
     <div class="content-area">
 
         <!-- Button Create -->
-        <button class="btn-create">
+        <a href="{{ route('jurusan.create') }}"
+           class="btn-create">
 
             Create
 
-        </button>
+        </a>
 
         <!-- Table -->
         <div class="table-responsive">
@@ -296,8 +325,31 @@
 
                 <tbody>
 
-                    {{-- Kosong seperti di foto --}}
-                    {{-- Nanti isi dengan foreach --}}
+                    {{-- Nanti isi foreach data --}}
+
+                    {{--
+                    @foreach($jurusan as $j)
+
+                    <tr>
+
+                        <td>{{ $loop->iteration }}</td>
+
+                        <td>{{ $j->kode_jurusan }}</td>
+
+                        <td>{{ $j->nama_jurusan }}</td>
+
+                        <td>{{ $j->created_at }}</td>
+
+                        <td>
+
+                            Tombol Edit / Hapus
+
+                        </td>
+
+                    </tr>
+
+                    @endforeach
+                    --}}
 
                 </tbody>
 

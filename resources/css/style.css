@@ -1,0 +1,1215 @@
+/* ==========================================================
+   SIAKAD ITBSS
+   Modern Dashboard
+   Version 2.0
+   Author : OpenAI x Marshae
+========================================================== */
+
+
+/* ==========================================================
+   RESET
+========================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+
+    background:#F4F7FC;
+
+    color:#2C3E50;
+
+    overflow-x:hidden;
+
+}
+
+a{
+
+    text-decoration:none;
+
+}
+
+img{
+
+    max-width:100%;
+
+}
+
+
+/* ==========================================================
+   WRAPPER
+========================================================== */
+
+.wrapper{
+
+    display:flex;
+
+    min-height:100vh;
+
+}
+
+.main-content{
+
+    flex:1;
+
+    margin-left:280px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    transition:.35s;
+
+}
+
+.content{
+
+    flex:1;
+
+    padding:35px;
+
+}
+
+
+/* ==========================================================
+   SIDEBAR
+========================================================== */
+
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:280px;
+
+    height:100vh;
+
+    background:linear-gradient(180deg,#005BAC,#003B73);
+
+    overflow-y:auto;
+
+    color:white;
+
+    display:flex;
+
+    flex-direction:column;
+
+    z-index:999;
+
+    box-shadow:8px 0 30px rgba(0,0,0,.15);
+
+}
+
+
+/* ==========================================================
+   SIDEBAR HEADER
+========================================================== */
+
+.sidebar-header{
+
+    text-align:center;
+
+    padding:35px 25px;
+
+    border-bottom:1px solid rgba(255,255,255,.1);
+
+}
+
+.sidebar-logo{
+
+    width:90px;
+
+    height:90px;
+
+    object-fit:contain;
+
+    background:white;
+
+    padding:10px;
+
+    border-radius:50%;
+
+    margin-bottom:18px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.2);
+
+}
+
+.sidebar-header h3{
+
+    font-size:24px;
+
+    font-weight:700;
+
+    margin-bottom:4px;
+
+}
+
+.sidebar-header p{
+
+    font-size:13px;
+
+    color:#dbe9ff;
+
+    line-height:22px;
+
+}
+
+
+/* ==========================================================
+   MENU TITLE
+========================================================== */
+
+.menu-title{
+
+    margin-top:25px;
+
+    margin-bottom:10px;
+
+    padding:0 30px;
+
+    font-size:12px;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    color:#b8d5ff;
+
+    font-weight:600;
+
+}
+
+
+/* ==========================================================
+   MENU
+========================================================== */
+
+.sidebar-menu{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:0;
+
+}
+
+.sidebar-menu li{
+
+    margin:6px 15px;
+
+}
+
+.sidebar-menu a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:15px 18px;
+
+    color:#dbe9ff;
+
+    border-radius:15px;
+
+    transition:.3s;
+
+    font-weight:500;
+
+}
+
+.sidebar-menu a i{
+
+    font-size:20px;
+
+    width:25px;
+
+}
+
+.sidebar-menu a:hover{
+
+    background:rgba(255,255,255,.15);
+
+    color:white;
+
+    transform:translateX(8px);
+
+}
+
+.sidebar-menu a.active{
+
+    background:white;
+
+    color:#005BAC;
+
+    font-weight:700;
+
+    box-shadow:0 15px 30px rgba(0,0,0,.15);
+
+}
+
+
+/* ==========================================================
+   USER CARD
+========================================================== */
+
+.sidebar-user{
+
+    margin-top:auto;
+
+    margin:20px;
+
+    background:white;
+
+    color:#333;
+
+    border-radius:20px;
+
+    padding:25px;
+
+    text-align:center;
+
+    box-shadow:0 15px 30px rgba(0,0,0,.15);
+
+}
+
+.avatar{
+
+    width:65px;
+
+    height:65px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#005BAC,#2A7BFF);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:white;
+
+    font-size:24px;
+
+    font-weight:bold;
+
+    margin:auto;
+
+    margin-bottom:15px;
+
+}
+
+.sidebar-user h5{
+
+    font-size:18px;
+
+    margin-bottom:5px;
+
+    font-weight:700;
+
+}
+
+.sidebar-user small{
+
+    color:#777;
+
+}
+
+.logout-btn{
+
+    width:100%;
+
+    margin-top:18px;
+
+    border-radius:12px;
+
+    padding:10px;
+
+}
+
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+.sidebar::-webkit-scrollbar{
+
+    width:7px;
+
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+
+    background:rgba(255,255,255,.3);
+
+    border-radius:20px;
+
+}
+
+.sidebar::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+/* ==========================================================
+   NAVBAR
+========================================================== */
+
+.top-navbar{
+
+    background:#fff;
+
+    height:85px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 35px;
+
+    border-bottom:1px solid #E8EDF5;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.04);
+
+    position:sticky;
+
+    top:0;
+
+    z-index:998;
+
+}
+
+.top-navbar h4{
+
+    margin:0;
+
+    color:#005BAC;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+
+.top-navbar small{
+
+    color:#7A8CA5;
+
+    font-size:14px;
+
+}
+
+.breadcrumb{
+
+    margin-top:3px;
+
+    margin-bottom:0;
+
+    background:none;
+
+}
+
+.breadcrumb-item a{
+
+    color:#6c757d;
+
+    text-decoration:none;
+
+}
+
+.breadcrumb-item.active{
+
+    color:#005BAC;
+
+    font-weight:600;
+
+}
+
+
+/* ==========================================================
+   SEARCH BOX
+========================================================== */
+
+.search-box{
+
+    width:320px;
+
+    background:#F7F9FC;
+
+    border-radius:40px;
+
+    padding:10px 18px;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.search-box i{
+
+    color:#A0AEC0;
+
+    margin-right:10px;
+
+}
+
+.search-box input{
+
+    border:none;
+
+    outline:none;
+
+    background:transparent;
+
+    width:100%;
+
+    font-size:14px;
+
+}
+
+.search-box input::placeholder{
+
+    color:#A0AEC0;
+
+}
+
+
+/* ==========================================================
+   NAVBAR BUTTON
+========================================================== */
+
+.navbar-icon{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#F4F7FC;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    position:relative;
+
+}
+
+.navbar-icon:hover{
+
+    background:#005BAC;
+
+    color:white;
+
+}
+
+.navbar-icon i{
+
+    font-size:20px;
+
+}
+
+.navbar-icon .badge{
+
+    position:absolute;
+
+    top:5px;
+
+    right:3px;
+
+}
+
+
+/* ==========================================================
+   AVATAR
+========================================================== */
+
+.avatar-circle{
+
+    width:48px;
+
+    height:48px;
+
+    border-radius:50%;
+
+    background:linear-gradient(135deg,#005BAC,#2A7BFF);
+
+    color:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-weight:700;
+
+    font-size:18px;
+
+    box-shadow:0 8px 18px rgba(0,91,172,.25);
+
+}
+
+
+/* ==========================================================
+   DROPDOWN
+========================================================== */
+
+.dropdown-menu{
+
+    border:none;
+
+    border-radius:18px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+
+    padding:12px;
+
+}
+
+.dropdown-item{
+
+    border-radius:10px;
+
+    padding:12px 15px;
+
+    transition:.2s;
+
+}
+
+.dropdown-item:hover{
+
+    background:#F5F8FD;
+
+    color:#005BAC;
+
+}
+
+
+/* ==========================================================
+   CARD
+========================================================== */
+
+.card{
+
+    border:none;
+
+    border-radius:20px;
+
+    background:white;
+
+    box-shadow:0 12px 30px rgba(0,0,0,.06);
+
+    overflow:hidden;
+
+    transition:.25s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:0 20px 40px rgba(0,0,0,.08);
+
+}
+
+.card-header{
+
+    background:white;
+
+    border-bottom:1px solid #EEF2F7;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    color:#005BAC;
+
+    padding:18px 22px;
+
+}
+
+.card-body{
+
+    padding:25px;
+
+}
+
+
+/* ==========================================================
+   DASHBOARD STAT CARD
+========================================================== */
+
+.stat-card{
+
+    border-radius:20px;
+
+    color:white;
+
+    padding:28px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    min-height:170px;
+
+}
+
+.stat-card h6{
+
+    font-size:15px;
+
+    opacity:.9;
+
+    margin-bottom:15px;
+
+}
+
+.stat-card h2{
+
+    font-size:42px;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+.stat-card p{
+
+    margin:0;
+
+    opacity:.9;
+
+}
+
+.stat-card i{
+
+    position:absolute;
+
+    right:25px;
+
+    bottom:15px;
+
+    font-size:70px;
+
+    opacity:.15;
+
+}
+
+
+/* ==========================================================
+   CARD COLOR
+========================================================== */
+
+.bg-blue{
+
+    background:linear-gradient(135deg,#005BAC,#3B82F6);
+
+}
+
+.bg-green{
+
+    background:linear-gradient(135deg,#16A34A,#4ADE80);
+
+}
+
+.bg-orange{
+
+    background:linear-gradient(135deg,#EA580C,#FB923C);
+
+}
+
+.bg-purple{
+
+    background:linear-gradient(135deg,#7C3AED,#A855F7);
+
+}
+
+
+/* ==========================================================
+   CHART CARD
+========================================================== */
+
+.chart-card{
+
+    min-height:420px;
+
+}
+
+.chart-card canvas{
+
+    width:100%!important;
+
+}
+
+
+/* ==========================================================
+   WELCOME CARD
+========================================================== */
+
+.welcome-card{
+
+    background:linear-gradient(135deg,#005BAC,#1E88E5);
+
+    color:white;
+
+    border-radius:22px;
+
+    padding:35px;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.welcome-card h2{
+
+    font-weight:700;
+
+    margin-bottom:12px;
+
+}
+
+.welcome-card p{
+
+    opacity:.92;
+
+    max-width:600px;
+
+}
+
+.welcome-card img{
+
+    position:absolute;
+
+    right:20px;
+
+    bottom:0;
+
+    height:180px;
+
+    opacity:.12;
+
+}
+
+/* ==========================================================
+   TABLE
+========================================================== */
+
+.table{
+    width:100%;
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    margin-bottom:0;
+}
+
+.table thead{
+    background:linear-gradient(90deg,#005BAC,#1E88E5);
+    color:#fff;
+}
+
+.table thead th{
+    border:none;
+    padding:18px;
+    font-weight:600;
+    font-size:15px;
+    white-space:nowrap;
+}
+
+.table tbody td{
+    padding:16px 18px;
+    border-color:#EEF2F7;
+    vertical-align:middle;
+}
+
+.table tbody tr{
+    transition:.25s;
+}
+
+.table tbody tr:hover{
+    background:#F8FBFF;
+}
+
+
+/* ==========================================================
+   DATATABLE
+========================================================== */
+
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter{
+    margin-bottom:20px;
+}
+
+.dataTables_wrapper .dataTables_filter input{
+    border-radius:10px;
+    border:1px solid #dbe2ea;
+    padding:8px 12px;
+    outline:none;
+}
+
+.dataTables_wrapper .dataTables_length select{
+    border-radius:10px;
+    border:1px solid #dbe2ea;
+    padding:6px 10px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    border-radius:8px !important;
+    margin:0 3px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current{
+    background:#005BAC !important;
+    color:#fff !important;
+    border:none !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    background:#1E88E5 !important;
+    color:#fff !important;
+    border:none !important;
+}
+
+
+/* ==========================================================
+   BUTTON
+========================================================== */
+
+.btn{
+    border-radius:10px;
+    font-weight:500;
+    transition:.25s;
+}
+
+.btn-primary{
+    background:#005BAC;
+    border:none;
+}
+
+.btn-primary:hover{
+    background:#004A91;
+    transform:translateY(-2px);
+}
+
+.btn-success:hover,
+.btn-danger:hover,
+.btn-warning:hover{
+    transform:translateY(-2px);
+}
+
+
+/* ==========================================================
+   FORM
+========================================================== */
+
+.form-control,
+.form-select{
+    border-radius:12px;
+    border:1px solid #DDE5EF;
+    padding:12px 15px;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:#005BAC;
+    box-shadow:0 0 0 .18rem rgba(0,91,172,.15);
+}
+
+.form-label{
+    font-weight:600;
+    margin-bottom:8px;
+    color:#34495E;
+}
+
+
+/* ==========================================================
+   ALERT
+========================================================== */
+
+.alert{
+    border:none;
+    border-radius:12px;
+}
+
+
+/* ==========================================================
+   BADGE
+========================================================== */
+
+.badge{
+    border-radius:30px;
+    padding:8px 14px;
+    font-weight:500;
+}
+
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+
+/* ==========================================================
+   CALENDAR CARD
+========================================================== */
+
+.calendar-card{
+    background:#fff;
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+
+.calendar-card h5{
+    color:#005BAC;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.calendar-card table{
+    width:100%;
+    text-align:center;
+}
+
+.calendar-card th{
+    padding:12px;
+    color:#005BAC;
+}
+
+.calendar-card td{
+    padding:12px;
+    border-radius:10px;
+    transition:.25s;
+    cursor:pointer;
+}
+
+.calendar-card td:hover{
+    background:#EAF4FF;
+}
+
+.calendar-card .today{
+    background:#005BAC;
+    color:#fff;
+}
+
+
+/* ==========================================================
+   LOGIN
+========================================================== */
+
+.login-page{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#005BAC,#1E88E5);
+}
+
+.login-card{
+    width:430px;
+    background:#fff;
+    border-radius:20px;
+    padding:40px;
+    box-shadow:0 25px 45px rgba(0,0,0,.15);
+}
+
+.login-logo{
+    width:95px;
+    display:block;
+    margin:auto;
+    margin-bottom:20px;
+}
+
+.login-title{
+    text-align:center;
+    color:#005BAC;
+    font-weight:700;
+}
+
+.login-subtitle{
+    text-align:center;
+    color:#7A8CA5;
+    margin-bottom:30px;
+}
+
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#005BAC;
+    border-radius:20px;
+}
+
+::-webkit-scrollbar-track{
+    background:#EEF2F7;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width:991px){
+
+    .sidebar{
+        margin-left:-280px;
+    }
+
+    .sidebar.show{
+        margin-left:0;
+    }
+
+    .main-content{
+        margin-left:0;
+    }
+
+    .content{
+        padding:20px;
+    }
+
+    .top-navbar{
+        padding:15px 20px;
+    }
+
+    .search-box{
+        display:none;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .stat-card{
+        margin-bottom:20px;
+    }
+
+    .card-body{
+        padding:20px;
+    }
+
+}
+
+@media (max-width:576px){
+
+    .login-card{
+        width:95%;
+        padding:30px;
+    }
+
+    .top-navbar h4{
+        font-size:20px;
+    }
+
+    .content{
+        padding:15px;
+    }
+
+}
+/* ==========================================
+   CALENDAR
+========================================== */
+
+.calendar-wrapper{
+    width:100%;
+}
+
+.calendar-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.calendar-header h5{
+    margin:0;
+    font-weight:700;
+    color:#005BAC;
+}
+
+.calendar-table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+}
+
+.calendar-table th{
+    background:#005BAC;
+    color:white;
+    padding:15px;
+    font-weight:600;
+}
+
+.calendar-table td{
+    border:1px solid #e9ecef;
+    height:90px;
+    vertical-align:top;
+    padding:10px;
+    font-weight:500;
+    transition:.25s;
+    cursor:pointer;
+}
+
+.calendar-table td:hover{
+    background:#f5f8ff;
+}
+
+.calendar-table td.text-danger{
+    color:#dc3545 !important;
+}
+
+.calendar-table td.bg-danger{
+    background:#dc3545 !important;
+    color:white !important;
+    font-weight:700;
+}
+
+.calendar-table td.today{
+    background:#0d6efd;
+    color:white;
+    font-weight:bold;
+}
+
+.calendar-table td.empty{
+    background:#f8f9fa;
+}
+
+.calendar-header .btn{
+    border-radius:10px;
+}

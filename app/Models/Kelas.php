@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Kelas extends Model
+{
+    use HasFactory;
+
+    protected $table = 'kelas';
+
+    protected $fillable = [
+        'kode_kelas',
+        'kode_mata_kuliah',
+        'kode_dosen',
+        'hari',
+        'jam',
+        'tahun_ajaran',
+        'ruang_kelas',
+        'jumlah_max',
+        'jumlah_mahasiswa',
+        'semester'
+    ];
+
+    public static function ListHari()
+    {
+        return [
+            'Senin',
+            'Selasa',
+            'Rabu',
+            'Kamis',
+            'Jumat',
+            'Sabtu'
+        ];
+    }
+
+    public static function ListJam()
+    {
+        return [
+            '08:00 - 09:40',
+            '09:50 - 11:30',
+            '12:30 - 14:10',
+            '17:00 - 18:40',
+            '19:00 - 20:40'
+        ];
+    }
+
+    public function mataKuliah()
+    {
+        return $this->belongsTo(
+            MataKuliah::class,
+            'kode_mata_kuliah',
+            'id'
+        );
+    }
+
+    public function dosen()
+    {
+        return $this->belongsTo(
+            Dosen::class,
+            'kode_dosen',
+            'id'
+        );
+    }
+    public function krsDetail()
+    {
+        return $this->hasMany(
+            KrsDetail::class,
+            'kelas_id',
+            'id'
+        );
+    }
+}

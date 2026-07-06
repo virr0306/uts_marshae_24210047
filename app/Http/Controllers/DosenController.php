@@ -7,42 +7,93 @@ use Illuminate\Http\Request;
 
 class DosenController extends Controller
 {
+    /**
+     * Menampilkan seluruh data dosen
+     */
     public function index()
     {
-        $dosen = Dosen::all();
+        $dosen = Dosen::latest()->get();
+
         return view('dosen.index', compact('dosen'));
     }
 
+    /**
+     * Form tambah dosen
+     */
     public function create()
     {
         return view('dosen.create');
     }
 
+    /**
+     * Simpan data dosen
+     */
     public function store(Request $request)
     {
-        Dosen::create($request->all());
-        return redirect('/dosen')->with('success', 'Data berhasil ditambahkan');
+        $request->validate([
+            'nama_dosen' => 'required|max:100',
+            'nip' => 'required|max:30|unique:dosens,nip',
+            'alamat' => 'required'
+        ]);
+
+        Dosen::create([
+            'nama_dosen' => $request->nama_dosen,
+            'nip' => $request->nip,
+            'alamat' => $request->alamat
+        ]);
+
+        return redirect()
+            ->route('dosen.index')
+            ->with('success', 'Data dosen berhasil ditambahkan.');
     }
 
-    public function edit($id)
+    /**
+     * Detail dosen
+     */
+    public function show(Dosen $dosen)
     {
-        $dosen = Dosen::findOrFail($id);
+        return view('dosen.show', compact('dosen'));
+    }
+
+    /**
+     * Form edit dosen
+     */
+    public function edit(Dosen $dosen)
+    {
         return view('dosen.edit', compact('dosen'));
     }
 
-    public function update(Request $request, $id)
+    /**
+     * Update data dosen
+     */
+    public function update(Request $request, Dosen $dosen)
     {
-        $dosen = Dosen::findOrFail($id);
-        $dosen->update($request->all());
+        $request->validate([
+            'nama_dosen' => 'required|max:100',
+            'nip' => 'required|max:30|unique:dosens,nip,' . $dosen->id,
+            'alamat' => 'required'
+        ]);
 
-        return redirect('/dosen')->with('success', 'Data berhasil diupdate');
+        $dosen->update([
+            'nama_dosen' => $request->nama_dosen,
+            'nip' => $request->nip,
+            'alamat' => $request->alamat
+        ]);
+
+        return redirect()
+            ->route('dosen.index')
+            ->with('success', 'Data dosen berhasil diperbarui.');
     }
 
-    public function destroy($id)
+    /**
+     * Hapus data dosen
+     */
+    public function destroy(Dosen $dosen)
     {
-        $dosen = Dosen::findOrFail($id);
         $dosen->delete();
 
-        return redirect('/dosen')->with('success', 'Data berhasil dihapus');
+        return redirect()
+            ->route('dosen.index')
+            ->with('success', 'Data dosen berhasil dihapus.');
     }
 }

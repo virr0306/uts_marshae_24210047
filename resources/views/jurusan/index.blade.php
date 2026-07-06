@@ -1,45 +1,147 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Data Jurusan</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-<div class="container mt-5">
-    <h3>Data Jurusan</h3>
+@extends('layouts.app')
 
-    <a href="{{ url('jurusan/create') }}" class="btn btn-primary mb-3">Tambah Data</a>
+@section('title','Data Jurusan')
 
-    <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>No</th>
-                <th>Nama Jurusan</th>
-                <th>Kode Jurusan</th>
-                <th>Ketua Jurusan</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach($jurusan as $j)
-            <tr>
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $j->nama_jurusan }}</td>
-                <td>{{ $j->kode_jurusan }}</td>
-                <td>{{ $j->ketua_jurusan }}</td>
-                <td>
-                    <a href="{{ url('jurusan/'.$j->id.'/edit') }}" class="btn btn-warning btn-sm">Edit</a>
+@section('content')
 
-                    <form action="{{ url('jurusan/'.$j->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger btn-sm">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h3 class="fw-bold mb-1">
+                Data Jurusan
+            </h3>
+
+            <p class="text-muted mb-0">
+                Kelola seluruh data jurusan ITBSS.
+            </p>
+
+        </div>
+
+        <a href="{{ route('jurusan.create') }}"
+           class="btn btn-primary">
+
+            <i class="bi bi-plus-circle"></i>
+
+            Tambah Jurusan
+
+        </a>
+
+    </div>
+
+    @if(session('success'))
+
+        <div class="alert alert-success alert-dismissible fade show">
+
+            {{ session('success') }}
+
+            <button class="btn-close"
+                    data-bs-dismiss="alert"></button>
+
+        </div>
+
+    @endif
+
+    <div class="card shadow border-0 rounded-4">
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-primary">
+
+                        <tr>
+
+                            <th width="70">No</th>
+
+                            <th>Nama Jurusan</th>
+
+                            <th>Kode</th>
+
+                            <th>Ketua Jurusan</th>
+
+                            <th width="170">Aksi</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    @forelse($jurusan as $j)
+
+                        <tr>
+
+                            <td>{{ $loop->iteration }}</td>
+
+                            <td>
+                                <strong>{{ $j->nama_jurusan }}</strong>
+                            </td>
+
+                            <td>{{ $j->kode_jurusan }}</td>
+
+                            <td>{{ $j->ketua_jurusan }}</td>
+
+                            <td>
+
+                                <a href="{{ route('jurusan.edit',$j->id) }}"
+                                   class="btn btn-warning btn-sm">
+
+                                    <i class="bi bi-pencil-square"></i>
+
+                                </a>
+
+                                <form
+                                    action="{{ route('jurusan.destroy',$j->id) }}"
+                                    method="POST"
+                                    class="d-inline">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button
+                                        class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Yakin ingin menghapus data?')">
+
+                                        <i class="bi bi-trash"></i>
+
+                                    </button>
+
+                                </form>
+
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+
+                            <td colspan="5"
+                                class="text-center text-muted">
+
+                                Belum ada data jurusan.
+
+                            </td>
+
+                        </tr>
+
+                    @endforelse
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
-</body>
-</html>
+
+@endsection

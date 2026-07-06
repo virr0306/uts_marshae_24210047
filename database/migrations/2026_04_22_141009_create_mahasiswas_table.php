@@ -6,26 +6,42 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('mahasiswas', function (Blueprint $table) {
+
             $table->id();
+
+            $table->foreignId('user_id')
+                  ->nullable()
+                  ->constrained()
+                  ->cascadeOnDelete();
+
             $table->string('fullname');
-            $table->string('NIM')->unique();
-            $table->string('NIDN')->unique();
+
+            $table->string('nim')->unique();
+
             $table->string('tempat_lahir')->nullable();
+
             $table->date('tanggal_lahir')->nullable();
+
             $table->text('alamat');
+
+            $table->foreignId('jurusan_id')
+                  ->nullable()
+                  ->constrained()
+                  ->nullOnDelete();
+
+            $table->foreignId('kelas_id')
+                  ->nullable()
+                  ->constrained()
+                  ->nullOnDelete();
+
             $table->timestamps();
+
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('mahasiswas');

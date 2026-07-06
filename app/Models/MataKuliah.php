@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class MataKuliah extends Model
 {
+    use HasFactory;
+
     protected $table = 'mata_kuliahs';
 
     protected $fillable = [
@@ -13,4 +16,19 @@ class MataKuliah extends Model
         'kode_matkul',
         'sks'
     ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relasi ke Kelas
+    |--------------------------------------------------------------------------
+    */
+
+    public function kelas()
+    {
+        return $this->hasMany(
+            Kelas::class,
+            'kode_mata_kuliah',
+            'id'
+        );
+    }
 }
